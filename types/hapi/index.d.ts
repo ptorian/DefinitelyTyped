@@ -128,7 +128,7 @@ export interface PluginPackage {
  *
  * The type T is the type of the plugin options.
  */
-export interface PluginBase<ServerApplicationState, RequestApplicationState, T> {
+export interface PluginBase<T, ServerApplicationState, RequestApplicationState> {
     /**
      * (required) the registration function with the signature async function(server, options) where:
      * * server - the server object with a plugin-specific server.realm.
@@ -155,7 +155,7 @@ export interface PluginBase<ServerApplicationState, RequestApplicationState, T> 
     once?: boolean;
 }
 
-export type Plugin<ServerApplicationState, RequestApplicationState, T> = PluginBase<ServerApplicationState, RequestApplicationState, T> & (PluginNameVersion | PluginPackage);
+export type Plugin<T, ServerApplicationState, RequestApplicationState> = PluginBase<T, ServerApplicationState, RequestApplicationState> & (PluginNameVersion | PluginPackage);
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -3122,32 +3122,32 @@ export interface ServerRegisterOptions {
  *
  * The type parameter T is the type of the plugin configuration options.
  */
-export interface ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, T> extends ServerRegisterOptions {
+export interface ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState> extends ServerRegisterOptions {
     /**
      * a plugin object.
      */
-    plugin: Plugin<ServerApplicationState, RequestApplicationState, T>;
+    plugin: Plugin<T, ServerApplicationState, RequestApplicationState>;
     /**
      * options passed to the plugin during registration.
      */
     options?: T;
 }
 
-export interface ServerRegisterPluginObjectArray<ServerApplicationState, RequestApplicationState, T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, T>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, U>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, V>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, W>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, X>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, Y>
-    | ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, Z>
+export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z, ServerApplicationState, RequestApplicationState> extends Array<ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<U, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<V, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<W, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<X, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<Y, ServerApplicationState, RequestApplicationState>
+    | ServerRegisterPluginObject<Z, ServerApplicationState, RequestApplicationState>
     | undefined> {
-    0: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, T>;
-    1?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, U>;
-    2?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, V>;
-    3?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, W>;
-    4?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, X>;
-    5?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, Y>;
-    6?: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, Z>;
+    0: ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState>;
+    1?: ServerRegisterPluginObject<U, ServerApplicationState, RequestApplicationState>;
+    2?: ServerRegisterPluginObject<V, ServerApplicationState, RequestApplicationState>;
+    3?: ServerRegisterPluginObject<W, ServerApplicationState, RequestApplicationState>;
+    4?: ServerRegisterPluginObject<X, ServerApplicationState, RequestApplicationState>;
+    5?: ServerRegisterPluginObject<Y, ServerApplicationState, RequestApplicationState>;
+    6?: ServerRegisterPluginObject<Z, ServerApplicationState, RequestApplicationState>;
 }
 
 /* tslint:disable-next-line:no-empty-interface */
@@ -3843,9 +3843,9 @@ export class Server<ServerApplicationState, RequestApplicationState> {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
     /* tslint:disable-next-line:no-unnecessary-generics */
-    register<T>(plugin: ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, T>, options?: ServerRegisterOptions): Promise<void>;
+    register<T>(plugin: ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState>, options?: ServerRegisterOptions): Promise<void>;
     /* tslint:disable-next-line:no-unnecessary-generics */
-    register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObjectArray<ServerApplicationState, RequestApplicationState, T, U, V, W, X, Y, Z>, options?: ServerRegisterOptions): Promise<void>;
+    register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z, ServerApplicationState, RequestApplicationState>, options?: ServerRegisterOptions): Promise<void>;
     register(plugins: Array<ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, any>>, options?: ServerRegisterOptions): Promise<void>;
     /* tslint:disable-next-line:unified-signatures */
     register(plugins: Plugin<ServerApplicationState, RequestApplicationState, any> | Array<Plugin<ServerApplicationState, RequestApplicationState, any>>, options?: ServerRegisterOptions): Promise<void>;
