@@ -4,6 +4,7 @@
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Rodrigo Saboya <https://github.com/saboya>
+//                 Sean Price <https://github.com/ptorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
