@@ -155,7 +155,7 @@ export interface PluginBase<T, ServerApplicationState, RequestApplicationState> 
     once?: boolean;
 }
 
-export type Plugin<T, ServerApplicationState, RequestApplicationState> = PluginBase<T, ServerApplicationState, RequestApplicationState> & (PluginNameVersion | PluginPackage);
+export type Plugin<T, ServerApplicationState = any, RequestApplicationState = any> = PluginBase<T, ServerApplicationState, RequestApplicationState> & (PluginNameVersion | PluginPackage);
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -333,7 +333,7 @@ export interface RequestInfo {
  * * fingerprint - the route internal normalized string representing the normalized path.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestroute)
  */
-export interface RequestRoute<ServerApplicationState, RequestApplicationState> {
+export interface RequestRoute<ServerApplicationState = any, RequestApplicationState = any> {
     /** the route HTTP method. */
     method: Util.HTTP_METHODS_PARTIAL;
 
@@ -394,7 +394,7 @@ export interface RequestQuery {
  * HTTP server callback (which is available via [request.raw.req](https://github.com/hapijs/hapi/blob/master/API.md#request.raw)). The request properties change throughout
  * the request [lifecycle](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle).
  */
-export interface Request<ServerApplicationState, RequestApplicationState> extends Podium {
+export interface Request<ServerApplicationState = any, RequestApplicationState = any> extends Podium {
     /**
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestapp)
@@ -663,7 +663,7 @@ export interface ResponseObjectHeaderOptions {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-object)
  * TODO, check extending from Podium is correct.  Extending because of "The response object supports the following events" [See docs](https://hapijs.com/api/17.0.1#-responseevents)
  */
-export interface ResponseObject<ServerApplicationState, RequestApplicationState> extends Podium {
+export interface ResponseObject<ServerApplicationState = any, RequestApplicationState = any> extends Podium {
     /**
      * Default value: {}.
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
@@ -984,7 +984,7 @@ export interface Auth {
  * document the h notation is used. It is named in the spirit of the RethinkDB r method, with h for hapi.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-toolkit)
  */
-export interface ResponseToolkit<ServerApplicationState, RequestApplicationState> {
+export interface ResponseToolkit<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle skips to the finalizing step
      * without further interaction with the node response stream. It is the developer's responsibility to write
@@ -1298,7 +1298,7 @@ export type PayloadCompressionDecoderSettings = object;
  * Determines how the request payload is processed.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayload)
  */
-export interface RouteOptionsPayload<ServerApplicationState, RequestApplicationState> {
+export interface RouteOptionsPayload<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Default value: allows parsing of the following mime types:
      * * application/json
@@ -1410,12 +1410,12 @@ export interface RouteOptionsPayload<ServerApplicationState, RequestApplicationS
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export type RouteOptionsPreArray<ServerApplicationState, RequestApplicationState> = RouteOptionsPreAllOptions<ServerApplicationState, RequestApplicationState>[];
+export type RouteOptionsPreArray<ServerApplicationState = any, RequestApplicationState = any> = RouteOptionsPreAllOptions<ServerApplicationState, RequestApplicationState>[];
 
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export type RouteOptionsPreAllOptions<ServerApplicationState, RequestApplicationState> = RouteOptionsPreObject<ServerApplicationState, RequestApplicationState> | RouteOptionsPreObject<ServerApplicationState, RequestApplicationState>[] | Lifecycle.Method<ServerApplicationState, RequestApplicationState>;
+export type RouteOptionsPreAllOptions<ServerApplicationState = any, RequestApplicationState = any> = RouteOptionsPreObject<ServerApplicationState, RequestApplicationState> | RouteOptionsPreObject<ServerApplicationState, RequestApplicationState>[] | Lifecycle.Method<ServerApplicationState, RequestApplicationState>;
 
 /**
  * An object with:
@@ -1424,7 +1424,7 @@ export type RouteOptionsPreAllOptions<ServerApplicationState, RequestApplication
  * * failAction - A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export interface RouteOptionsPreObject<ServerApplicationState, RequestApplicationState> {
+export interface RouteOptionsPreObject<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * a lifecycle method.
      */
@@ -1458,7 +1458,7 @@ export type RouteOptionsResponseSchema =
  * Processing rules for the outgoing response.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponse)
  */
-export interface RouteOptionsResponse<ServerApplicationState, RequestApplicationState> {
+export interface RouteOptionsResponse<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Default value: 200.
      * The default HTTP status code when the payload is considered empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time of response transmission (the
@@ -1632,7 +1632,7 @@ export type RouteOptionsSecure = boolean | RouteOptionsSecureObject;
  * Request input validation rules for various request components.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
  */
-export interface RouteOptionsValidate<ServerApplicationState, RequestApplicationState> {
+export interface RouteOptionsValidate<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Default value: none.
      * An optional object with error fields copied into every validation error response.
@@ -1729,7 +1729,7 @@ export interface RouteOptionsApp {
  * Each route can be customized to change the default behavior of the request lifecycle.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
-export interface RouteOptions<ServerApplicationState, RequestApplicationState> {
+export interface RouteOptions<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
@@ -1999,7 +1999,7 @@ export type ServerAuthSchemeOptions = object;
  * @param server - a reference to the server object the scheme is added to.
  * @param options - (optional) the scheme options argument passed to server.auth.strategy() when instantiation a strategy.
  */
-export type ServerAuthScheme<ServerApplicationState, RequestApplicationState> = (server: Server<ServerApplicationState, RequestApplicationState>, options?: ServerAuthSchemeOptions) => ServerAuthSchemeObject<ServerApplicationState, RequestApplicationState>;
+export type ServerAuthScheme<ServerApplicationState = any, RequestApplicationState = any> = (server: Server<ServerApplicationState, RequestApplicationState>, options?: ServerAuthSchemeOptions) => ServerAuthSchemeObject<ServerApplicationState, RequestApplicationState>;
 
 /* tslint:disable-next-line:no-empty-interface */
 export interface ServerAuthSchemeObjectApi {
@@ -2009,7 +2009,7 @@ export interface ServerAuthSchemeObjectApi {
  * The scheme method must return an object with the following
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#authentication-scheme)
  */
-export interface ServerAuthSchemeObject<ServerApplicationState, RequestApplicationState> {
+export interface ServerAuthSchemeObject<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * optional object which is exposed via the [server.auth.api](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.api) object.
      */
@@ -2074,7 +2074,7 @@ export interface ServerAuthSchemeObject<ServerApplicationState, RequestApplicati
 export interface ServerAuthConfig extends RouteOptionsAccess {
 }
 
-export interface ServerAuth<ServerApplicationState, RequestApplicationState> {
+export interface ServerAuth<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * An object where each key is an authentication strategy name and the value is the exposed strategy API.
      * Available only when the authentication scheme exposes an API by returning an api key in the object
@@ -2314,9 +2314,9 @@ export interface RequestEvent {
 }
 
 export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
-export type RequestEventHandler<ServerApplicationState, RequestApplicationState> = (request: Request<ServerApplicationState, RequestApplicationState>, event: RequestEvent, tags: { [key: string]: true }) => void;
-export type ResponseEventHandler<ServerApplicationState, RequestApplicationState> = (request: Request<ServerApplicationState, RequestApplicationState>) => void;
-export type RouteEventHandler<ServerApplicationState, RequestApplicationState> = (route: RequestRoute<ServerApplicationState, RequestApplicationState>) => void;
+export type RequestEventHandler<ServerApplicationState = any, RequestApplicationState = any> = (request: Request<ServerApplicationState, RequestApplicationState>, event: RequestEvent, tags: { [key: string]: true }) => void;
+export type ResponseEventHandler<ServerApplicationState = any, RequestApplicationState = any> = (request: Request<ServerApplicationState, RequestApplicationState>) => void;
+export type RouteEventHandler<ServerApplicationState = any, RequestApplicationState = any> = (route: RequestRoute<ServerApplicationState, RequestApplicationState>) => void;
 export type StartEventHandler = () => void;
 export type StopEventHandler = () => void;
 
@@ -2347,7 +2347,7 @@ export interface PodiumEvent<K extends string, T> {
  * Other methods include: server.events.removeListener(name, listener), server.events.removeAllListeners(name), and server.events.hasListeners(name).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
  */
-export interface ServerEvents<ServerApplicationState, RequestApplicationState> extends Podium {
+export interface ServerEvents<ServerApplicationState = any, RequestApplicationState = any> extends Podium {
     /**
      * Subscribe to an event where:
      * @param criteria - the subscription criteria which must be one of:
@@ -2471,7 +2471,7 @@ export type ServerRequestExtType =
  *     when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
  * @return void
  */
-export interface ServerExtEventsObject<ServerApplicationState, RequestApplicationState> {
+export interface ServerExtEventsObject<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * (required) the extension point event name. The available extension points include the request extension points as well as the following server extension points:
      * * 'onPreStart' - called before the connection listeners are started.
@@ -2490,7 +2490,7 @@ export interface ServerExtEventsObject<ServerApplicationState, RequestApplicatio
     options?: ServerExtOptions;
 }
 
-export interface RouteExtObject<ServerApplicationState, RequestApplicationState> {
+export interface RouteExtObject<ServerApplicationState = any, RequestApplicationState = any> {
     method: Lifecycle.Method<ServerApplicationState, RequestApplicationState>;
     options?: ServerExtOptions;
 }
@@ -2517,7 +2517,7 @@ export interface RouteExtObject<ServerApplicationState, RequestApplicationState>
  *     when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
  * @return void
  */
-export interface ServerExtEventsRequestObject<ServerApplicationState, RequestApplicationState> {
+export interface ServerExtEventsRequestObject<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * (required) the extension point event name. The available extension points include the request extension points as well as the following server extension points:
      * * 'onPreStart' - called before the connection listeners are started.
@@ -2545,7 +2545,7 @@ export interface ServerExtEventsRequestObject<ServerApplicationState, RequestApp
     options?: ServerExtOptions;
 }
 
-export type ServerExtPointFunction<ServerApplicationState, RequestApplicationState> = (server: Server<ServerApplicationState, RequestApplicationState>) => void;
+export type ServerExtPointFunction<ServerApplicationState = any, RequestApplicationState = any> = (server: Server<ServerApplicationState, RequestApplicationState>) => void;
 
 /**
  * An object with the following:
@@ -2704,7 +2704,7 @@ export interface ServerInjectOptions<RequestApplicationState> extends Shot.Reque
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
  * For context [Shot module](https://github.com/hapijs/shot)
  */
-export interface ServerInjectResponse<ServerApplicationState, RequestApplicationState> extends Shot.ResponseObject {
+export interface ServerInjectResponse<ServerApplicationState = any, RequestApplicationState = any> extends Shot.ResponseObject {
     /**
      * the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the
      * internal objects returned (instead of parsing the response string).
@@ -2837,7 +2837,7 @@ export interface ServerOptionsApp {
  * All options are optionals.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-server-options)
  */
-export interface ServerOptions<ServerApplicationState, RequestApplicationState> {
+export interface ServerOptions<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Default value: '0.0.0.0' (all available network interfaces).
      * Sets the hostname or IP address the server will listen on. If not configured, defaults to host if present, otherwise to all available network interfaces. Set to '127.0.0.1' or 'localhost' to
@@ -3169,7 +3169,7 @@ export interface HandlerDecorations {
  * * rules - route custom rules object. The object is passed to each rules processor registered with server.rules(). Cannot be used if route.options.rules is defined.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
  */
-export interface ServerRoute<ServerApplicationState, RequestApplicationState> {
+export interface ServerRoute<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the server's router configuration. The path
      * can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters. For context [See
@@ -3211,7 +3211,7 @@ export interface ServerRoute<ServerApplicationState, RequestApplicationState> {
  * Optional cookie settings
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverstatename-options)
  */
-export interface ServerStateCookieOptions<ServerApplicationState, RequestApplicationState> {
+export interface ServerStateCookieOptions<ServerApplicationState = any, RequestApplicationState = any> {
     /** time-to-live in milliseconds. Defaults to null (session time-life - cookies are deleted when the browser is closed). */
     ttl?: number | null;
     /** sets the 'Secure' flag. Defaults to true. */
@@ -3276,7 +3276,7 @@ export interface ServerStateCookieOptions<ServerApplicationState, RequestApplica
  * * value - the cookie value.
  * * options - cookie configuration to override the server settings.
  */
-export interface ServerStateFormat<ServerApplicationState, RequestApplicationState> {
+export interface ServerStateFormat<ServerApplicationState = any, RequestApplicationState = any> {
     name: string;
     value: string;
     options: ServerStateCookieOptions<ServerApplicationState, RequestApplicationState>;
@@ -3286,7 +3286,7 @@ export interface ServerStateFormat<ServerApplicationState, RequestApplicationSta
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverstatename-options)
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsstate)
  */
-export interface ServerState<ServerApplicationState, RequestApplicationState> {
+export interface ServerState<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * The server cookies manager.
      * Access: read only and statehood public interface.
@@ -3342,7 +3342,7 @@ export interface ServerState<ServerApplicationState, RequestApplicationState> {
  * The method function can have a defaults object or function property. If the property is set to an object, that object is used as the default route config for routes using this handler.
  * If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
  */
-export interface HandlerDecorationMethod<ServerApplicationState, RequestApplicationState> {
+export interface HandlerDecorationMethod<ServerApplicationState = any, RequestApplicationState = any> {
     (route: RouteOptions<ServerApplicationState, RequestApplicationState>, options: any): Lifecycle.Method<ServerApplicationState, RequestApplicationState>;
     defaults?: RouteOptions<ServerApplicationState, RequestApplicationState> | ((method: any) => RouteOptions<ServerApplicationState, RequestApplicationState>);
 }
@@ -3366,7 +3366,7 @@ export type DecorateName = string | symbol;
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
  */
-export class Server<ServerApplicationState, RequestApplicationState> {
+export class Server<ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * Creates a new server object
      * @param options server configuration object.
@@ -3982,7 +3982,7 @@ export namespace Lifecycle {
      * * h - the response toolkit the handler must call to set a response and return control back to the framework.
      * * err - an error object availble only when the method is used as a failAction value.
      */
-    type Method<ServerApplicationState, RequestApplicationState> = (request: Request<ServerApplicationState, RequestApplicationState>, h: ResponseToolkit<ServerApplicationState, RequestApplicationState>, err?: Error) => ReturnValue<ServerApplicationState, RequestApplicationState>;
+    type Method<ServerApplicationState = any, RequestApplicationState = any> = (request: Request<ServerApplicationState, RequestApplicationState>, h: ResponseToolkit<ServerApplicationState, RequestApplicationState>, err?: Error) => ReturnValue<ServerApplicationState, RequestApplicationState>;
 
     /**
      * Each lifecycle method must return a value or a promise that resolves into a value. If a lifecycle method returns
@@ -3998,8 +3998,8 @@ export namespace Lifecycle {
      * - a promise object that resolve to any of the above values
      * For more info please [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
      */
-    type ReturnValue<ServerApplicationState, RequestApplicationState> = ReturnValueTypes<ServerApplicationState, RequestApplicationState> | (Promise<ReturnValueTypes<ServerApplicationState, RequestApplicationState>>);
-    type ReturnValueTypes<ServerApplicationState, RequestApplicationState> =
+    type ReturnValue<ServerApplicationState = any, RequestApplicationState = any> = ReturnValueTypes<ServerApplicationState, RequestApplicationState> | (Promise<ReturnValueTypes<ServerApplicationState, RequestApplicationState>>);
+    type ReturnValueTypes<ServerApplicationState = any, RequestApplicationState = any> =
         (null | string | number | boolean) |
         (Buffer) |
         (Error | Boom) |
@@ -4020,7 +4020,7 @@ export namespace Lifecycle {
      * * * err - the error object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-failaction-configuration)
      */
-    type FailAction<ServerApplicationState, RequestApplicationState> = 'error' | 'log' | 'ignore' | Method<ServerApplicationState, RequestApplicationState>;
+    type FailAction<ServerApplicationState = any, RequestApplicationState = any> = 'error' | 'log' | 'ignore' | Method<ServerApplicationState, RequestApplicationState>;
 }
 
 export namespace Util {
